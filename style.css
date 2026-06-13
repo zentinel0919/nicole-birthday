@@ -77,9 +77,9 @@ body {
 }
 
 .painting {
-    height: clamp(200px, 45vh, 400px); 
+    height: clamp(280px, 60vh, 500px); 
     width: auto; 
-    max-width: 85vw; 
+    max-width: 92vw; 
     object-fit: contain;
     border: 8px solid #111;
     border-radius: 4px;
