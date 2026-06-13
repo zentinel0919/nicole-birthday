@@ -24,7 +24,10 @@ function startMusic() {
     if (!musicStarted) {
         musicStarted = true;
         bgMusic.volume = 0.5; 
-        bgMusic.play().catch(e => console.log("Audio play prevented", e));
+        bgMusic.play().catch(e => {
+            console.log("Audio play prevented", e);
+            musicStarted = false;
+        });
     }
 }
 
@@ -124,6 +127,7 @@ window.addEventListener('keyup', (e) => {
 touchLeft.addEventListener('touchstart', (e) => {
     e.preventDefault();
     isMovingLeft = true;
+    startMusic();
 });
 touchLeft.addEventListener('touchend', (e) => {
     e.preventDefault();
@@ -134,6 +138,7 @@ touchLeft.addEventListener('touchend', (e) => {
 touchRight.addEventListener('touchstart', (e) => {
     e.preventDefault();
     isMovingRight = true;
+    startMusic();
 });
 touchRight.addEventListener('touchend', (e) => {
     e.preventDefault();
