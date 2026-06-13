@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050508;
+    color: #ffffff;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none; /* Let clicks pass through to canvas if needed */
+    padding: 2rem;
+    background: radial-gradient(circle, rgba(5,5,8,0.7) 0%, rgba(5,5,8,0) 70%);
+}
+
+.subtitle {
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #a0a0b8;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 1s;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.greeting {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 2s;
+}
+
+.name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 4.5rem;
+    background: linear-gradient(45deg, #f3ec78, #af4261);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    filter: drop-shadow(0px 0px 10px rgba(175, 66, 97, 0.2));
+    animation: fadeInScale 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 3s;
+}
+
+.message {
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: #d0d0e0;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 4.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+    from { 
+        opacity: 0; 
+        transform: scale(0.95);
+        filter: blur(5px);
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1);
+        filter: blur(0px);
+    }
+}
+
+@media (max-width: 768px) {
+    .name { font-size: 3rem; }
+    .greeting { font-size: 1.5rem; }
+    .subtitle { font-size: 0.7rem; }
+}
