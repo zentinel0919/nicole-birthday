@@ -17,7 +17,7 @@ let isMovingRight = false;
 
 // Boundaries
 const minPos = 0;
-const maxPos = 7000;
+const maxPos = 8000;
 
 function startMusic() {
     if (!musicStarted) {
