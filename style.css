@@ -1,3 +1,7 @@
+:root {
+    --floor-height: clamp(80px, 15vh, 120px);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -52,7 +56,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 120px;
+    height: var(--floor-height);
     background: linear-gradient(to top, #050508, #11111a);
     border-top: 3px solid #1a1a24;
     box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
@@ -62,10 +66,10 @@ body {
 /* Paintings and Plaques */
 .painting-zone {
     position: absolute;
-    bottom: 120px;
+    bottom: var(--floor-height);
     display: flex;
     flex-direction: row;
-    align-items: center; /* Align painting and plaque to center vertically */
+    align-items: center; /* Align painting and plaque vertically */
     gap: 30px; /* Space between painting and plaque */
     transform: translateX(-50%); /* Center the zone on its left coordinate */
 }
@@ -78,9 +82,9 @@ body {
 }
 
 .painting {
-    height: 350px; /* Make them all the exact same height */
-    width: auto; /* Let width scale automatically */
-    max-width: 60vw; /* Prevent from being too huge on narrow screens */
+    height: clamp(200px, 45vh, 400px); /* Responsive height! */
+    width: auto; 
+    max-width: 85vw; /* Prevent from overflowing on narrow screens */
     object-fit: contain;
     border: 8px solid #111;
     border-radius: 4px;
@@ -101,8 +105,8 @@ body {
     top: -50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 400px;
-    height: 500px;
+    width: clamp(250px, 50vw, 400px);
+    height: 150%;
     background: radial-gradient(ellipse at top, rgba(255, 240, 200, 0.25) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.8s ease;
@@ -112,8 +116,8 @@ body {
 
 /* Museum Plaque */
 .plaque {
-    width: 250px;
-    background: rgba(18, 18, 24, 0.9);
+    width: clamp(220px, 30vw, 320px);
+    background: rgba(18, 18, 24, 0.95);
     border-left: 3px solid #ffd700;
     padding: 20px;
     border-radius: 4px;
@@ -125,7 +129,7 @@ body {
 }
 
 .plaque h3 {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
     color: #ffd700;
     margin-bottom: 10px;
     font-style: italic;
@@ -133,7 +137,7 @@ body {
 }
 
 .plaque p {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
     color: #d0d0d0;
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
@@ -141,11 +145,8 @@ body {
 
 /* Active State for Paintings */
 .painting-zone.active .painting {
-    /* Light it up and restore color */
     filter: brightness(1) contrast(1.1);
-    
-    /* Make this one bigger */
-    transform: translateY(0) scale(1.15);
+    transform: translateY(0) scale(1.1);
     border-color: #ffd700;
     box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), 0 20px 40px rgba(0,0,0,0.8);
     z-index: 5;
@@ -164,9 +165,11 @@ body {
 /* Character */
 #character {
     position: absolute;
-    bottom: 120px;
-    left: 50vw; /* Always in center of screen horizontally */
-    transform: translateX(-50%);
+    bottom: var(--floor-height);
+    left: 50vw; 
+    /* Using scale to make character slightly smaller on mobile */
+    transform: translateX(-50%) scale(clamp(0.6, 1.5vw + 0.4, 1));
+    transform-origin: bottom center;
     width: 60px;
     height: 100px;
     z-index: 10;
@@ -185,9 +188,9 @@ body {
     left: 15px;
     width: 30px;
     height: 30px;
-    background-color: #ffcc99; /* Skin tone */
+    background-color: #ffcc99; 
     border-radius: 4px;
-    box-shadow: -4px 0 0 #4a2511; /* Hair back */
+    box-shadow: -4px 0 0 #4a2511; 
 }
 
 .hair {
@@ -196,7 +199,7 @@ body {
     left: -5px;
     width: 40px;
     height: 20px;
-    background-color: #4a2511; /* Hair color */
+    background-color: #4a2511; 
     border-radius: 8px 8px 0 0;
 }
 
@@ -215,7 +218,7 @@ body {
     left: 15px;
     width: 30px;
     height: 35px;
-    background-color: #af4261; /* Dress color */
+    background-color: #af4261; 
     border-radius: 8px 8px 0 0;
 }
 
@@ -254,7 +257,7 @@ body {
     left: 0;
     width: 14px;
     height: 6px;
-    background-color: #333; /* Shoes */
+    background-color: #333; 
     border-radius: 3px;
 }
 
@@ -304,7 +307,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Let clicks pass to zones */
+    pointer-events: none; 
     z-index: 100;
 }
 
@@ -322,32 +325,36 @@ body {
 
 #instruction {
     position: absolute;
-    bottom: 30px; /* Moved to bottom */
+    bottom: clamp(10px, 3vh, 30px);
     width: 100%;
     text-align: center;
     font-family: 'VT323', monospace;
     color: rgba(255, 255, 255, 0.6);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     pointer-events: none;
     transition: opacity 1s;
     background: rgba(0,0,0,0.5);
     padding: 10px 0;
 }
 
-@media (max-width: 768px) {
+/* Responsive Orientation Rules */
+@media (orientation: portrait) {
     .painting-zone {
         flex-direction: column;
         gap: 15px;
+        /* Pull it slightly higher since the plaque goes below */
+        bottom: calc(var(--floor-height) + 20px);
     }
-    .painting { height: 260px; max-width: 80vw; }
+    .painting {
+        margin-bottom: 10px;
+    }
     .plaque {
-        width: 80vw;
-        max-width: 300px;
+        width: 85vw;
+        max-width: 350px;
         margin-bottom: 0;
         text-align: center;
         border-left: none;
         border-top: 3px solid #ffd700;
         padding: 15px;
     }
-    #character { transform: scale(0.8) translateX(-50%); transform-origin: bottom left; }
 }
