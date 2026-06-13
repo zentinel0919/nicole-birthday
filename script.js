@@ -17,14 +17,13 @@ let isMovingRight = false;
 
 // Boundaries
 const minPos = 0;
-const maxPos = 7400; // Updated boundary due to wider painting zones
+const maxPos = 7400;
 
 function startMusic() {
     if (!musicStarted) {
         musicStarted = true;
-        // The volume is kept low to be chilling and ambient
         bgMusic.volume = 0.5; 
-        bgMusic.play().catch(e => console.log("Audio play prevented by browser interaction policy"));
+        bgMusic.play().catch(e => console.log("Audio play prevented", e));
     }
 }
 
@@ -43,15 +42,14 @@ function updateMovement() {
     }
 
     if (moved) {
-        startMusic(); // Start music on first movement
+        startMusic();
         character.classList.add('walking');
         world.style.transform = `translateX(${-worldPos}px)`;
         
-        // Parallax effect for the background pillars
         backgroundPillars.style.backgroundPosition = `${-worldPos * 0.3}px 0, ${-worldPos * 0.3 - 10}px 0`;
         
         checkProximity();
-        instruction.style.opacity = '0'; // Hide instruction once they move
+        instruction.style.opacity = '0';
     } else {
         character.classList.remove('walking');
     }
@@ -63,11 +61,7 @@ function checkProximity() {
     const charWorldPos = worldPos + (window.innerWidth / 2);
     
     paintings.forEach((painting) => {
-        // Since we centered the painting zone with transform: translateX(-50%),
-        // the left style is exactly the center of the painting
         const paintingCenter = parseInt(painting.style.left);
-        
-        // If character is within 300px of the painting center
         if (Math.abs(charWorldPos - paintingCenter) < 300) {
             painting.classList.add('active');
         } else {
@@ -76,18 +70,16 @@ function checkProximity() {
     });
 }
 
-// Keyboard controls (Desktop)
 window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'a') isMovingLeft = true;
-    if (e.key === 'ArrowRight' || e.key === 'd') isMovingRight = true;
+    if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') isMovingLeft = true;
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') isMovingRight = true;
 });
 
 window.addEventListener('keyup', (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'a') isMovingLeft = false;
-    if (e.key === 'ArrowRight' || e.key === 'd') isMovingRight = false;
+    if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') isMovingLeft = false;
+    if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') isMovingRight = false;
 });
 
-// Touch controls (Mobile)
 touchLeft.addEventListener('touchstart', (e) => {
     e.preventDefault();
     isMovingLeft = true;
@@ -106,12 +98,8 @@ touchRight.addEventListener('touchend', (e) => {
     isMovingRight = false;
 });
 
-// Also start music if they just tap the screen generally
 window.addEventListener('click', startMusic, { once: true });
 window.addEventListener('touchstart', startMusic, { once: true });
 
-// Initial check
 checkProximity();
-
-// Start game loop
 requestAnimationFrame(updateMovement);

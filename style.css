@@ -13,7 +13,7 @@ body {
     color: #ffffff;
     font-family: 'Cormorant Garamond', serif;
     overflow: hidden;
-    touch-action: none; /* Prevent pinch zoom on mobile */
+    touch-action: none; 
     user-select: none;
 }
 
@@ -25,14 +25,12 @@ body {
     background: radial-gradient(circle at 50% 50%, #151520 0%, #050508 100%);
 }
 
-/* Background Museum Pillars */
 #background-pillars {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Create repeating shapes that look like thick pillars in a dark museum */
     background-image: 
         linear-gradient(90deg, #090910 0px, #090910 80px, transparent 80px, transparent 400px),
         linear-gradient(90deg, #0d0d16 0px, #0d0d16 100px, transparent 100px, transparent 400px);
@@ -63,15 +61,14 @@ body {
     z-index: 1;
 }
 
-/* Paintings and Plaques */
 .painting-zone {
     position: absolute;
-    bottom: var(--floor-height);
+    bottom: calc(var(--floor-height) + 20px); /* Lift slightly above floor */
     display: flex;
     flex-direction: row;
-    align-items: center; /* Align painting and plaque vertically */
-    gap: 30px; /* Space between painting and plaque */
-    transform: translateX(-50%); /* Center the zone on its left coordinate */
+    align-items: center; 
+    gap: 30px; 
+    transform: translateX(-50%); 
 }
 
 .art-container {
@@ -82,20 +79,17 @@ body {
 }
 
 .painting {
-    height: clamp(200px, 45vh, 400px); /* Responsive height! */
+    height: clamp(200px, 45vh, 400px); 
     width: auto; 
-    max-width: 85vw; /* Prevent from overflowing on narrow screens */
+    max-width: 85vw; 
     object-fit: contain;
     border: 8px solid #111;
     border-radius: 4px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.9);
     transition: all 0.8s ease;
-    
-    /* Make it a silhouette */
     filter: brightness(0); 
-    
     transform: translateY(20px);
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     position: relative;
     z-index: 2;
 }
@@ -117,15 +111,15 @@ body {
 /* Museum Plaque */
 .plaque {
     width: clamp(220px, 30vw, 320px);
-    background: rgba(18, 18, 24, 0.95);
+    background: #242430; /* Lighter background so it's clearly a plaque */
     border-left: 3px solid #ffd700;
     padding: 20px;
     border-radius: 4px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
     opacity: 0;
     transform: translateX(-20px);
     transition: all 0.8s ease;
-    margin-bottom: 40px;
+    z-index: 3;
 }
 
 .plaque h3 {
@@ -138,12 +132,11 @@ body {
 
 .plaque p {
     font-size: clamp(0.95rem, 2vw, 1.1rem);
-    color: #d0d0d0;
+    color: #e0e0e0;
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
 }
 
-/* Active State for Paintings */
 .painting-zone.active .painting {
     filter: brightness(1) contrast(1.1);
     transform: translateY(0) scale(1.1);
@@ -161,13 +154,10 @@ body {
     transform: translateX(0);
 }
 
-
-/* Character */
 #character {
     position: absolute;
     bottom: var(--floor-height);
     left: 50vw; 
-    /* Using scale to make character slightly smaller on mobile */
     transform: translateX(-50%) scale(clamp(0.6, 1.5vw + 0.4, 1));
     transform-origin: bottom center;
     width: 60px;
@@ -175,132 +165,29 @@ body {
     z-index: 10;
 }
 
-/* CSS Pixel Art Girl */
-.pixel-girl {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.head {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    width: 30px;
-    height: 30px;
-    background-color: #ffcc99; 
-    border-radius: 4px;
-    box-shadow: -4px 0 0 #4a2511; 
-}
-
-.hair {
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    width: 40px;
-    height: 20px;
-    background-color: #4a2511; 
-    border-radius: 8px 8px 0 0;
-}
-
-.eye {
-    position: absolute;
-    top: 10px;
-    right: 8px;
-    width: 4px;
-    height: 4px;
-    background-color: #000;
-}
-
-.body {
-    position: absolute;
-    top: 40px;
-    left: 15px;
-    width: 30px;
-    height: 35px;
-    background-color: #af4261; 
-    border-radius: 8px 8px 0 0;
-}
-
-.arm {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    width: 10px;
-    height: 25px;
-    background-color: #ffcc99;
-    border-radius: 5px;
-    z-index: 2;
-}
-
-.legs {
-    position: absolute;
-    top: 75px;
-    left: 15px;
-    width: 30px;
-    height: 25px;
-}
-
-.leg {
-    position: absolute;
-    top: 0;
-    width: 10px;
-    height: 25px;
-    background-color: #ffcc99;
-    border-radius: 0 0 4px 4px;
-}
-
-.leg::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 14px;
-    height: 6px;
-    background-color: #333; 
-    border-radius: 3px;
-}
-
+.pixel-girl { position: relative; width: 100%; height: 100%; }
+.head { position: absolute; top: 10px; left: 15px; width: 30px; height: 30px; background-color: #ffcc99; border-radius: 4px; box-shadow: -4px 0 0 #4a2511; }
+.hair { position: absolute; top: -5px; left: -5px; width: 40px; height: 20px; background-color: #4a2511; border-radius: 8px 8px 0 0; }
+.eye { position: absolute; top: 10px; right: 8px; width: 4px; height: 4px; background-color: #000; }
+.body { position: absolute; top: 40px; left: 15px; width: 30px; height: 35px; background-color: #af4261; border-radius: 8px 8px 0 0; }
+.arm { position: absolute; top: 5px; left: 10px; width: 10px; height: 25px; background-color: #ffcc99; border-radius: 5px; z-index: 2; }
+.legs { position: absolute; top: 75px; left: 15px; width: 30px; height: 25px; }
+.leg { position: absolute; top: 0; width: 10px; height: 25px; background-color: #ffcc99; border-radius: 0 0 4px 4px; }
+.leg::after { content: ''; position: absolute; bottom: 0; left: 0; width: 14px; height: 6px; background-color: #333; border-radius: 3px; }
 .left-leg { left: 2px; }
 .right-leg { right: 2px; }
 
-/* Walking Animation */
-#character.walking .left-leg {
-    animation: walkLeft 0.5s infinite alternate steps(2);
-}
+#character.walking .left-leg { animation: walkLeft 0.5s infinite alternate steps(2); }
+#character.walking .right-leg { animation: walkRight 0.5s infinite alternate steps(2); }
+#character.walking .body { animation: bob 0.25s infinite alternate; }
+#character.walking .head { animation: bob 0.25s infinite alternate; }
 
-#character.walking .right-leg {
-    animation: walkRight 0.5s infinite alternate steps(2);
-}
+@keyframes walkLeft { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-5px) rotate(-20deg); } }
+@keyframes walkRight { 0% { transform: translateY(-5px) rotate(20deg); } 100% { transform: translateY(0) rotate(0deg); } }
+@keyframes bob { 0% { transform: translateY(0); } 100% { transform: translateY(3px); } }
 
-#character.walking .body {
-    animation: bob 0.25s infinite alternate;
-}
-#character.walking .head {
-    animation: bob 0.25s infinite alternate;
-}
+#character.facing-left .pixel-girl { transform: scaleX(-1); }
 
-@keyframes walkLeft {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-5px) rotate(-20deg); }
-}
-
-@keyframes walkRight {
-    0% { transform: translateY(-5px) rotate(20deg); }
-    100% { transform: translateY(0) rotate(0deg); }
-}
-
-@keyframes bob {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(3px); }
-}
-
-/* Direction Facing */
-#character.facing-left .pixel-girl {
-    transform: scaleX(-1);
-}
-
-/* UI Layer */
 #ui-layer {
     position: absolute;
     top: 0;
@@ -311,7 +198,6 @@ body {
     z-index: 100;
 }
 
-/* Controls */
 .touch-zone {
     position: absolute;
     top: 0;
@@ -337,16 +223,16 @@ body {
     padding: 10px 0;
 }
 
-/* Responsive Orientation Rules */
-@media (orientation: portrait) {
+/* Responsive Rules for smaller screens (Mobile / Tablets) */
+@media (max-width: 900px) {
     .painting-zone {
         flex-direction: column;
         gap: 15px;
-        /* Pull it slightly higher since the plaque goes below */
-        bottom: calc(var(--floor-height) + 20px);
+        /* Lift the painting zone significantly higher on mobile so plaque sits neatly above the floor */
+        bottom: calc(var(--floor-height) + 120px);
     }
     .painting {
-        margin-bottom: 10px;
+        margin-bottom: 0px;
     }
     .plaque {
         width: 85vw;
@@ -356,5 +242,6 @@ body {
         border-left: none;
         border-top: 3px solid #ffd700;
         padding: 15px;
+        background: #242430; /* Ensure plaque is visible on mobile too */
     }
 }
