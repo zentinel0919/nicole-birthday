@@ -64,17 +64,15 @@ body {
 .painting-zone {
     position: absolute;
     bottom: calc(var(--floor-height) + 20px); 
-    /* No flex, just absolute positioned at the specific left coordinate */
+    /* The anchor point for the memory */
 }
 
 .art-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    /* Center the art-container perfectly on the zone's coordinate */
+    /* Center the painting perfectly on the character! */
     transform: translateX(-50%); 
 }
 
@@ -107,19 +105,14 @@ body {
     z-index: 1;
 }
 
-/* Museum Plaque */
+/* Museum Plaque - Base Styles */
 .plaque {
     position: absolute;
-    left: calc(100% + 40px); /* 40px to the right of the painting */
-    bottom: 20px;
-    width: clamp(220px, 30vw, 350px);
     background: #242430; 
-    border-left: 3px solid #ffd700;
     padding: 20px;
     border-radius: 4px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.8);
     opacity: 0;
-    transform: translateX(-20px);
     transition: all 0.8s ease;
     z-index: 3;
 }
@@ -151,9 +144,40 @@ body {
     opacity: 1;
 }
 
-.painting-zone.active .plaque {
-    opacity: 1;
-    transform: translateX(0);
+/* LANDSCAPE MODE (Phones held sideways, or Desktop PCs) */
+@media (orientation: landscape) {
+    .plaque {
+        left: calc(100% + 40px); /* Right of the painting */
+        bottom: 20px;
+        width: clamp(250px, 30vw, 350px);
+        border-left: 3px solid #ffd700;
+        text-align: left;
+        transform: translateX(-20px); /* Slight left offset for animation */
+    }
+    .painting-zone.active .plaque {
+        opacity: 1;
+        transform: translateX(0); /* Slide into place perfectly */
+    }
+}
+
+/* PORTRAIT MODE (Phones held upright) */
+@media (orientation: portrait) {
+    .plaque {
+        /* Move text ABOVE the painting */
+        bottom: calc(100% + 20px); 
+        left: 50%;
+        width: 85vw;
+        max-width: 400px;
+        border-bottom: 3px solid #ffd700;
+        text-align: center;
+        /* Center it horizontally and offset it slightly downward for animation */
+        transform: translateX(-50%) translateY(20px); 
+    }
+    .painting-zone.active .plaque {
+        opacity: 1;
+        /* Slide up into place and stay centered */
+        transform: translateX(-50%) translateY(0); 
+    }
 }
 
 #character {
@@ -223,28 +247,4 @@ body {
     transition: opacity 1s;
     background: rgba(0,0,0,0.5);
     padding: 10px 0;
-}
-
-/* Responsive Rules for Mobile Portrait ONLY */
-@media (max-width: 900px) and (orientation: portrait) {
-    .painting-zone {
-        bottom: calc(var(--floor-height) + 120px);
-    }
-    .plaque {
-        /* Move plaque below the painting */
-        position: absolute;
-        left: 50%;
-        bottom: auto;
-        top: calc(100% + 20px);
-        transform: translateX(calc(-50% - 20px)); /* Initial hidden state offset */
-        width: 85vw;
-        max-width: 350px;
-        text-align: center;
-        border-left: none;
-        border-top: 3px solid #ffd700;
-        padding: 15px;
-    }
-    .painting-zone.active .plaque {
-        transform: translateX(-50%); /* Center it when active */
-    }
 }
