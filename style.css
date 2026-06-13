@@ -42,7 +42,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 7200px;
+    width: 8000px;
     height: 100%;
     transition: transform 0.1s linear;
     z-index: 1;
@@ -59,22 +59,28 @@ body {
     z-index: 1;
 }
 
-/* Paintings */
+/* Paintings and Plaques */
 .painting-zone {
     position: absolute;
     bottom: 120px;
-    /* Remove fixed width so images dictate width, center horizontally using flex */
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Align painting and plaque to center vertically */
+    gap: 30px; /* Space between painting and plaque */
+    transform: translateX(-50%); /* Center the zone on its left coordinate */
+}
+
+.art-container {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: flex-end;
-    transform: translateX(-50%); /* Center the zone on its left coordinate */
 }
 
 .painting {
     height: 350px; /* Make them all the exact same height */
     width: auto; /* Let width scale automatically */
-    max-width: 90vw; /* Prevent from being too huge on narrow screens */
+    max-width: 60vw; /* Prevent from being too huge on narrow screens */
     object-fit: contain;
     border: 8px solid #111;
     border-radius: 4px;
@@ -104,6 +110,35 @@ body {
     z-index: 1;
 }
 
+/* Museum Plaque */
+.plaque {
+    width: 250px;
+    background: rgba(18, 18, 24, 0.9);
+    border-left: 3px solid #ffd700;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.8s ease;
+    margin-bottom: 40px;
+}
+
+.plaque h3 {
+    font-size: 1.5rem;
+    color: #ffd700;
+    margin-bottom: 10px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.plaque p {
+    font-size: 1.1rem;
+    color: #d0d0d0;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+}
+
 /* Active State for Paintings */
 .painting-zone.active .painting {
     /* Light it up and restore color */
@@ -119,6 +154,12 @@ body {
 .painting-zone.active .spotlight {
     opacity: 1;
 }
+
+.painting-zone.active .plaque {
+    opacity: 1;
+    transform: translateX(0);
+}
+
 
 /* Character */
 #character {
@@ -267,44 +308,6 @@ body {
     z-index: 100;
 }
 
-/* Fixed Message Box at the top */
-#ui-message-box {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 600px;
-    text-align: center;
-    background: rgba(10, 10, 15, 0.85);
-    border: 2px solid #ffd700;
-    border-radius: 12px;
-    padding: 20px 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.5s ease;
-}
-
-#ui-message-box.visible {
-    opacity: 1;
-}
-
-#ui-title {
-    font-size: 2rem;
-    color: #ffd700;
-    margin-bottom: 10px;
-    font-style: italic;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-}
-
-#ui-desc {
-    font-size: 1.4rem;
-    color: #e0e0e0;
-    font-family: 'VT323', monospace;
-    letter-spacing: 1px;
-    line-height: 1.4;
-}
-
 /* Controls */
 .touch-zone {
     position: absolute;
@@ -319,7 +322,7 @@ body {
 
 #instruction {
     position: absolute;
-    bottom: 30px; /* Moved to bottom to avoid message box */
+    bottom: 30px; /* Moved to bottom */
     width: 100%;
     text-align: center;
     font-family: 'VT323', monospace;
@@ -332,9 +335,19 @@ body {
 }
 
 @media (max-width: 768px) {
-    .painting { height: 280px; }
-    #ui-message-box { width: 90%; padding: 15px; top: 20px; }
-    #ui-title { font-size: 1.5rem; }
-    #ui-desc { font-size: 1.1rem; }
+    .painting-zone {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .painting { height: 260px; max-width: 80vw; }
+    .plaque {
+        width: 80vw;
+        max-width: 300px;
+        margin-bottom: 0;
+        text-align: center;
+        border-left: none;
+        border-top: 3px solid #ffd700;
+        padding: 15px;
+    }
     #character { transform: scale(0.8) translateX(-50%); transform-origin: bottom left; }
 }

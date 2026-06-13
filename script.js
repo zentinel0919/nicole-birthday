@@ -4,11 +4,6 @@ const character = document.getElementById('character');
 const paintings = document.querySelectorAll('.painting-zone');
 const instruction = document.getElementById('instruction');
 
-// UI Elements
-const uiMessageBox = document.getElementById('ui-message-box');
-const uiTitle = document.getElementById('ui-title');
-const uiDesc = document.getElementById('ui-desc');
-
 const touchLeft = document.getElementById('touch-left');
 const touchRight = document.getElementById('touch-right');
 
@@ -19,17 +14,16 @@ let worldPos = 0;
 const speed = 7;
 let isMovingLeft = false;
 let isMovingRight = false;
-let activePaintingId = null;
 
 // Boundaries
 const minPos = 0;
-const maxPos = 6600; // Updated boundary
+const maxPos = 7400; // Updated boundary due to wider painting zones
 
 function startMusic() {
     if (!musicStarted) {
         musicStarted = true;
-        // The volume is kept low to be chilling but not overpowering
-        bgMusic.volume = 0.4; 
+        // The volume is kept low to be chilling and ambient
+        bgMusic.volume = 0.5; 
         bgMusic.play().catch(e => console.log("Audio play prevented by browser interaction policy"));
     }
 }
@@ -67,32 +61,19 @@ function updateMovement() {
 
 function checkProximity() {
     const charWorldPos = worldPos + (window.innerWidth / 2);
-    let foundActive = false;
     
-    paintings.forEach((painting, index) => {
+    paintings.forEach((painting) => {
         // Since we centered the painting zone with transform: translateX(-50%),
         // the left style is exactly the center of the painting
         const paintingCenter = parseInt(painting.style.left);
         
         // If character is within 300px of the painting center
         if (Math.abs(charWorldPos - paintingCenter) < 300) {
-            if (!painting.classList.contains('active')) {
-                painting.classList.add('active');
-                
-                // Update the fixed UI message box
-                uiTitle.innerHTML = painting.getAttribute('data-title');
-                uiDesc.innerHTML = painting.getAttribute('data-desc');
-                uiMessageBox.classList.add('visible');
-            }
-            foundActive = true;
+            painting.classList.add('active');
         } else {
             painting.classList.remove('active');
         }
     });
-
-    if (!foundActive) {
-        uiMessageBox.classList.remove('visible');
-    }
 }
 
 // Keyboard controls (Desktop)
