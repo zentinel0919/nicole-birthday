@@ -18,15 +18,34 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #151520 0%, #050508 100%);
+}
+
+/* Background Museum Pillars */
+#background-pillars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Create repeating shapes that look like thick pillars in a dark museum */
+    background-image: 
+        linear-gradient(90deg, #090910 0px, #090910 80px, transparent 80px, transparent 400px),
+        linear-gradient(90deg, #0d0d16 0px, #0d0d16 100px, transparent 100px, transparent 400px);
+    background-size: 400px 100%, 400px 100%;
+    background-position: 0 0, -10px 0;
+    opacity: 0.6;
+    z-index: 0;
 }
 
 #museum-world {
     position: absolute;
     top: 0;
     left: 0;
-    width: 6200px;
+    width: 7200px;
     height: 100%;
     transition: transform 0.1s linear;
+    z-index: 1;
 }
 
 #floor {
@@ -35,30 +54,36 @@ body {
     width: 100%;
     height: 120px;
     background: linear-gradient(to top, #050508, #11111a);
-    border-top: 2px solid #2a2a3a;
+    border-top: 3px solid #1a1a24;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+    z-index: 1;
 }
 
 /* Paintings */
 .painting-zone {
     position: absolute;
     bottom: 120px;
-    width: 300px;
-    height: 450px;
+    /* Remove fixed width so images dictate width, center horizontally using flex */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    transform: translateX(-50%); /* Center the zone on its left coordinate */
 }
 
 .painting {
-    width: 220px;
-    max-height: 300px;
-    object-fit: cover;
-    border: 8px solid #222;
+    height: 350px; /* Make them all the exact same height */
+    width: auto; /* Let width scale automatically */
+    max-width: 90vw; /* Prevent from being too huge on narrow screens */
+    object-fit: contain;
+    border: 8px solid #111;
     border-radius: 4px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    transition: all 0.5s ease;
-    filter: brightness(0.3) grayscale(0.5); /* Dimmed by default */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    transition: all 0.8s ease;
+    
+    /* Make it a silhouette */
+    filter: brightness(0); 
+    
     transform: translateY(20px);
     margin-bottom: 40px;
     position: relative;
@@ -67,68 +92,32 @@ body {
 
 .spotlight {
     position: absolute;
-    top: -100px;
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
-    width: 300px;
+    width: 400px;
     height: 500px;
-    background: radial-gradient(ellipse at top, rgba(255, 240, 200, 0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse at top, rgba(255, 240, 200, 0.25) 0%, transparent 70%);
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.8s ease;
     pointer-events: none;
     z-index: 1;
 }
 
-.message-box {
-    position: absolute;
-    top: -120px;
-    width: 300px;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    z-index: 3;
-}
-
-.message-box h3 {
-    font-size: 1.8rem;
-    color: #ffd700;
-    margin-bottom: 10px;
-    font-style: italic;
-}
-
-.message-box p {
-    font-size: 1.2rem;
-    color: #e0e0e0;
-    font-family: 'VT323', monospace; /* Pixel art font for messages */
-    letter-spacing: 1px;
-    line-height: 1.4;
-}
-
-.final-message h2 {
-    font-size: 2.5rem;
-    background: linear-gradient(45deg, #f3ec78, #af4261);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 15px;
-}
-
-/* Active State */
+/* Active State for Paintings */
 .painting-zone.active .painting {
-    filter: brightness(1.1) grayscale(0);
-    transform: translateY(0) scale(1.05);
+    /* Light it up and restore color */
+    filter: brightness(1) contrast(1.1);
+    
+    /* Make this one bigger */
+    transform: translateY(0) scale(1.15);
     border-color: #ffd700;
-    box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.4), 0 20px 40px rgba(0,0,0,0.8);
+    z-index: 5;
 }
 
 .painting-zone.active .spotlight {
     opacity: 1;
-}
-
-.painting-zone.active .message-box {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Character */
@@ -278,6 +267,45 @@ body {
     z-index: 100;
 }
 
+/* Fixed Message Box at the top */
+#ui-message-box {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    background: rgba(10, 10, 15, 0.85);
+    border: 2px solid #ffd700;
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.5s ease;
+}
+
+#ui-message-box.visible {
+    opacity: 1;
+}
+
+#ui-title {
+    font-size: 2rem;
+    color: #ffd700;
+    margin-bottom: 10px;
+    font-style: italic;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+#ui-desc {
+    font-size: 1.4rem;
+    color: #e0e0e0;
+    font-family: 'VT323', monospace;
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+
+/* Controls */
 .touch-zone {
     position: absolute;
     top: 0;
@@ -291,19 +319,22 @@ body {
 
 #instruction {
     position: absolute;
-    top: 30px;
+    bottom: 30px; /* Moved to bottom to avoid message box */
     width: 100%;
     text-align: center;
     font-family: 'VT323', monospace;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
     font-size: 1.2rem;
     pointer-events: none;
     transition: opacity 1s;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 0;
 }
 
 @media (max-width: 768px) {
-    .painting-zone { transform: scale(0.8); transform-origin: bottom center; }
-    .message-box h3 { font-size: 1.5rem; }
-    .message-box p { font-size: 1rem; }
+    .painting { height: 280px; }
+    #ui-message-box { width: 90%; padding: 15px; top: 20px; }
+    #ui-title { font-size: 1.5rem; }
+    #ui-desc { font-size: 1.1rem; }
     #character { transform: scale(0.8) translateX(-50%); transform-origin: bottom left; }
 }

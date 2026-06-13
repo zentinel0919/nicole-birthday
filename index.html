@@ -11,94 +11,63 @@
 </head>
 <body>
     
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <!-- Using a placeholder ambient chilling track, replace with your own if needed -->
+        <source src="https://cdn.pixabay.com/audio/2022/01/18/audio_d0a13f69d2.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="game-container">
+        <!-- Background elements for Museum feel -->
+        <div id="background-pillars"></div>
+
         <!-- The scrolling world -->
         <div id="museum-world">
             <!-- Floor line -->
             <div id="floor"></div>
 
             <!-- Paintings -->
-            <!-- Image 1 -->
-            <div class="painting-zone" style="left: 500px;">
+            <div class="painting-zone" style="left: 600px;" data-title="The Beginning" data-desc="This is where our story starts. Every great journey begins with a single step, and I'm so glad I took it with you.">
                 <div class="spotlight"></div>
-                <img src="images/1st.jpg" class="painting" alt="Memory 1" onerror="this.src='https://via.placeholder.com/200x300?text=1st.jpg'">
-                <div class="message-box">
-                    <h3>The Beginning</h3>
-                    <p>This is where our story starts. Every great journey begins with a single step, and I'm so glad I took it with you.</p>
-                </div>
+                <img src="images/1st.jpg" class="painting" alt="Memory 1">
             </div>
 
-            <!-- Image 2 -->
-            <div class="painting-zone" style="left: 1200px;">
+            <div class="painting-zone" style="left: 1400px;" data-title="Getting Closer" data-desc="Days turned into weeks, and every moment spent together became a treasure I hold closely to my heart.">
                 <div class="spotlight"></div>
-                <img src="images/2nd.jpg" class="painting" alt="Memory 2" onerror="this.src='https://via.placeholder.com/200x300?text=2nd.jpg'">
-                <div class="message-box">
-                    <h3>Getting Closer</h3>
-                    <p>Days turned into weeks, and every moment spent together became a treasure I hold closely to my heart.</p>
-                </div>
+                <img src="images/2nd.jpg" class="painting" alt="Memory 2">
             </div>
 
-            <!-- Image 3 -->
-            <div class="painting-zone" style="left: 1900px;">
+            <div class="painting-zone" style="left: 2200px;" data-title="Unforgettable Memories" data-desc="I still remember this day perfectly. The laughs we shared are etched in my mind forever.">
                 <div class="spotlight"></div>
-                <img src="images/3rd.JPG" class="painting" alt="Memory 3" onerror="this.src='https://via.placeholder.com/200x300?text=3rd.JPG'">
-                <div class="message-box">
-                    <h3>Unforgettable Memories</h3>
-                    <p>I still remember this day perfectly. The laughs we shared are etched in my mind forever.</p>
-                </div>
+                <img src="images/3rd.JPG" class="painting" alt="Memory 3">
             </div>
 
-            <!-- Image 4 -->
-            <div class="painting-zone" style="left: 2600px;">
+            <div class="painting-zone" style="left: 3000px;" data-title="Through Thick and Thin" data-desc="Even when things get tough, having you by my side makes everything feel like it's going to be okay.">
                 <div class="spotlight"></div>
-                <img src="images/4th.jpg" class="painting" alt="Memory 4" onerror="this.src='https://via.placeholder.com/200x300?text=4th.jpg'">
-                <div class="message-box">
-                    <h3>Through Thick and Thin</h3>
-                    <p>Even when things get tough, having you by my side makes everything feel like it's going to be okay.</p>
-                </div>
+                <img src="images/4th.jpg" class="painting" alt="Memory 4">
             </div>
 
-            <!-- Image 5 -->
-            <div class="painting-zone" style="left: 3300px;">
+            <div class="painting-zone" style="left: 3800px;" data-title="Adventures" data-desc="Every new place we explore becomes my favorite place, simply because you are there.">
                 <div class="spotlight"></div>
-                <img src="images/5th.jpg" class="painting" alt="Memory 5" onerror="this.src='https://via.placeholder.com/200x300?text=5th.jpg'">
-                <div class="message-box">
-                    <h3>Adventures</h3>
-                    <p>Every new place we explore becomes my favorite place, simply because you are there.</p>
-                </div>
+                <img src="images/5th.jpg" class="painting" alt="Memory 5">
             </div>
 
-            <!-- Image 6 -->
-            <div class="painting-zone" style="left: 4000px;">
+            <div class="painting-zone" style="left: 4600px;" data-title="Growing Together" data-desc="Watching you grow and achieve your dreams inspires me every single day. You are amazing.">
                 <div class="spotlight"></div>
-                <img src="images/6th.jpg" class="painting" alt="Memory 6" onerror="this.src='https://via.placeholder.com/200x300?text=6th.jpg'">
-                <div class="message-box">
-                    <h3>Growing Together</h3>
-                    <p>Watching you grow and achieve your dreams inspires me every single day. You are amazing.</p>
-                </div>
+                <img src="images/6th.jpg" class="painting" alt="Memory 6">
             </div>
 
-            <!-- Image 7 -->
-            <div class="painting-zone" style="left: 4700px;">
+            <div class="painting-zone" style="left: 5400px;" data-title="My Favorite Smile" data-desc="Your smile lights up my world more than any museum spotlight ever could.">
                 <div class="spotlight"></div>
-                <img src="images/7th.jpg" class="painting" alt="Memory 7" onerror="this.src='https://via.placeholder.com/200x300?text=7th.jpg'">
-                <div class="message-box">
-                    <h3>My Favorite Smile</h3>
-                    <p>Your smile lights up my world more than any museum spotlight ever could.</p>
-                </div>
+                <img src="images/7th.jpg" class="painting" alt="Memory 7">
             </div>
 
-            <!-- Image 8 -->
-            <div class="painting-zone" style="left: 5400px;">
+            <div class="painting-zone" style="left: 6200px;" data-title="Happy Birthday, Nicole Jane!" data-desc="I can't wait to fill more galleries with our memories. Have the most wonderful birthday!">
                 <div class="spotlight"></div>
-                <img src="images/8th.jpg" class="painting" alt="Memory 8" onerror="this.src='https://via.placeholder.com/200x300?text=8th.jpg'">
-                <div class="message-box final-message">
-                    <h2>Happy Birthday,<br>Nicole Jane!</h2>
-                    <p>I can't wait to fill more galleries with our memories. Have the most wonderful birthday!</p>
-                </div>
+                <img src="images/8th.jpg" class="painting" alt="Memory 8">
             </div>
             
-            <div class="end-wall" style="left: 6000px;"></div>
+            <div class="end-wall" style="left: 6800px;"></div>
         </div>
 
         <!-- The Character -->
@@ -121,7 +90,13 @@
 
     <!-- UI Layer -->
     <div id="ui-layer">
-        <div id="instruction">Tap left or right sides of the screen to walk.<br>On PC, use Left/Right Arrow keys.</div>
+        <!-- Fixed readable message box -->
+        <div id="ui-message-box">
+            <h3 id="ui-title"></h3>
+            <p id="ui-desc"></p>
+        </div>
+
+        <div id="instruction">Tap screen or use Arrow Keys to walk.<br>Music will play automatically.</div>
         <div id="touch-left" class="touch-zone"></div>
         <div id="touch-right" class="touch-zone"></div>
     </div>
